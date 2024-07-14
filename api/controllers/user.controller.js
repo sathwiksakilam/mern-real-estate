@@ -34,3 +34,21 @@ export const updateUser = async (req, res, next) => {
 
 // {new: true}: This is an option passed to findByIdAndUpdate to specify that the method should return the updated document rather than the original document before the update. 
 // set The $set operator is used to update only the specified fields in the document. If any of the fields (e.g., username, email, avatar, password) are not provided in the request body, they will not be changed.
+
+
+
+export const deleteUser = async(req,res,next) =>{
+    if (req.user.id != req.params.id)
+    {
+        return next(errorHandler(401, "You can only delete your own account!"));
+    }
+    try{
+        await User.findByIdAndDelete(req.params.id);
+        res.clearCookie('access_token');
+        res.status(200).json('User has been deleted');
+    }
+    catch(error)
+    {
+        next(error);
+    }
+}
