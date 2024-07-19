@@ -33,7 +33,7 @@ export default function CreateListing() {
     furnished: false,
   });
   //   console.log(files);
-  console.log(formData);
+  // console.log(formData);
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
